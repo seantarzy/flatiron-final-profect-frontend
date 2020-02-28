@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, Animated } from 'react-native';
+import { StyleSheet, Text, View, Image, Animated, Dimensions } from 'react-native';
 import CountDownClock from './gameComponents/countdown'
 import GameClock from './gameComponents/gameClock'
 import Barrel from './gameComponents/barrel'
@@ -10,6 +10,10 @@ export default function PlayGame() {
  const [gameStart, setGameStart] = useState(false)
     const [opacity, setOpacity] = useState(new Animated.Value(0))
     const[score, setScore] = useState(0)
+    const[dimensions, setDimensions] = useState({
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height
+    })
     const onLoad = () => {
         Animated.timing(opacity, {
             toValue: 1,
@@ -43,7 +47,9 @@ if (!gameStart){
     )}
     else{
         return(
-        <View style = {styles.gameBackground}>
+            <View 
+            style={styles.gameBackground}
+            >
             <Text>Game Start</Text>
             <GameClock gameFinish = {gameFinish} 
                     onLayout={({ nativeEvent }) => {
@@ -54,7 +60,8 @@ if (!gameStart){
             {/* <Barrel/> */}
             <Banana setScore = {setScore}
             score= {score}
-            />
+                    style={{width: Dimensions.get("screen").width, height: Dimensions.get("screen").height}}
+                />
         </View>)
     }
 }
