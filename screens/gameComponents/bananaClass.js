@@ -16,7 +16,7 @@ import BananaAgingPhase6 from './bananaAgingPhase6'
 import YellowSpotted from './yellowSpotted'
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { transform } from 'typescript'
+// import { transform } from 'typescript'
 class BananaComponent extends Component {
     
     constructor(props) {

@@ -5,7 +5,8 @@ import LoginForm from './forms/loginForm.js'
 import Home from './screens/home'
 import HomeStack from './routes/homeStack'
 import SignUpform from './forms/signupForm.js'
-
+import './shim.js'
+import crypto from 'crypto'
 
 export default function App() {
    const [signUpForm, setSignUpForm] = useState(false)
