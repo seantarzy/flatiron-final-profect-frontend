@@ -67,8 +67,8 @@ class BananaComponent extends Component {
                     // console.log(evt.touchHistory.touchBank[1].currentPageX)
                     let peelPositionX = evt.touchHistory.touchBank[1].currentPageX
                     let peelPositionY = evt.touchHistory.touchBank[1].currentPageY
-                    // if (Math.abs(peelPositionX - this.state.targetPostionX1)  < 40 && Math.abs(peelPositionY - this.state.targetPostionY1) < 40){
-                    //                     this.setState({swipedToBarrel: true})
+                    // if (gestureState.dy> 5){
+                    //                     this.setState({swipedForBarrel: true})
                     //                     this.props.setScore(1)
                     //                 }
                                         // console.log(this.state.swipedToBarrel, gestureState)
@@ -123,10 +123,15 @@ class BananaComponent extends Component {
                 this.state = {
                     banana: 'full',
                     bananaAge: "",
-                    swipedForBarrel: false,
+                    swipedForBarrel: true,
             swipedToBarrel: false,
-            bananaPosition: new Animated.ValueXY({x: 100, y: 160}),
-             barrelPosition: new Animated.ValueXY({ x: 1, y: 1 }), 
+            bananaPosition: new Animated.ValueXY({x: 100, y: -160}),
+             barrelPosition: new Animated.ValueXY(this.state.barrelPositions[4]), 
+             barrelPosition1: new Animated.ValueXY({x: 10, y: 10}),
+             barrelPosition2: new Animated.ValueXY({x: -10, y: 0}),
+             barrelPosition3: new Animated.ValueXY({x: 0, y: -10}),
+             barrelPosition4: new Animated.ValueXY({x: -10, y: 10}),
+                    barrelPositions: [{ x: 1, y: 1 }, { x: 10, y: 10 }, { x: -10, y: 0 }, { x: 0, y: -10 }, { x: -10, y: 10 } ],
                     targetPostionX1: 25.66665649414062,
                     targetPostionY1: 243.6666564941406,
                     released: false,
@@ -191,18 +196,16 @@ class BananaComponent extends Component {
         }
     }
     handlePress=()=>{
+        // e.preventDefault()
+        this.setState({swipedForBarrel: false})
+        console.log(this.state)
 
     }
 
      bananaTransform = {
-    transform: [
-        {
-            translateY: 50
-        },
-        {
-            translateX: 50
-        }
-    ],
+     transform: [{ rotateX: '45deg' }, { rotateZ: '0.785398rad' }],
+    transition: '0.5s', transform  
+     
 }
     render() {
         // console.log(this.state)
@@ -220,7 +223,7 @@ class BananaComponent extends Component {
                 //     this.setState({ barrelPosition: {X: nativeEvent.layout.x, y: nativeEvent.layout.y }})                }}
                    style = {this.state.barrelPosition.getLayout()}
                     >
-                <Barrel  />
+                    <Barrel style={this.state.barrelPosition.getLayout()} />
                 </Animated.View>
                 {this.state.timer > 0 && this.state.timer <= 10 ?
                  <Animated.View style={this.state.bananaPosition.getLayout()}>
@@ -307,12 +310,10 @@ class BananaComponent extends Component {
                 </Animated.View>
                 {!this.state.swipedToBarrel && this.state.timer > 0 && this.state.timer < 60 ?
                     <Animated.View 
-                        
                         // onLayout={({ nativeEvent }) => {
                         //     this.setState({ bananaPosition: { x: nativeEvent.layout.x, y: nativeEvent.layout.y } })
                         // }}
-                        style={[this.state.bananaPosition.getLayout()]}
-  >
+                        style={this.state.bananaPosition.getLayout()}>
                         {/* <GestureRecognizer
                             onSwipe={this.onSwipe}
                             onSwipeUp={this.onSwipeUp}
@@ -321,8 +322,7 @@ class BananaComponent extends Component {
                             onSwipeRight={this.onSwipeRight}
                             config={this.config}
                         > */}
-                        <Peel style ={this.state.swipedForBarrel ? this.bananaTransform : null}
-                        
+                        <Peel 
                         />
                         {/* </GestureRecognizer> */}
                     </Animated.View>

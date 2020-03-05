@@ -27,7 +27,7 @@ export default function BananaPeel(props) {
         ]
     }
     
-    let peelImage = <Image source={require('../../assets/banana-peeling/banana-peel.png')} style={styles.banana} />
+    let peelImage = <Image source={require('../../assets/banana-peeling/banana-peel.png')} />
     // console.log("peel",Dimensions.get("screen").width)
     // console.log("peel props", props.translator)
     
@@ -39,7 +39,7 @@ export default function BananaPeel(props) {
     
     return (
         
-        <Animated.View >
+        <Animated.View style={styles.banana}>
             {peelImage}
         </Animated.View>
       
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
    
     banana: {
         position: "absolute",
-        // justifyContent: 'flex-end',
+        justifyContent: 'flex-end',
         height: 100,
         width: 100,
-        top: 80,
+        top: 180,
         left: 10
     }
 

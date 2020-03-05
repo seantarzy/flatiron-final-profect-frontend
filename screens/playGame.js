@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
 gameBackground: {
     flex: 1,
         backgroundColor: '#98DFEA'
-}
+}, 
+
+
 
 })
